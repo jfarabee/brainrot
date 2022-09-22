@@ -1,0 +1,12 @@
+[package]
+name = "brainrot"
+version = "0.1.0"
+edition = "2021"
+authors = ["Jacob Farabee <jfarabee@asu.edu>"]
+description = "Brainfuck JIT in Rust: a lesson in impractical projects for fun."
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+pest = "2.3.1"
+pest_derive = "2.3.1"

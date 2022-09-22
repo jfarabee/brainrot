@@ -1,0 +1,51 @@
+alpha = { 'a'..'z' | 'A'..'Z' }		//builtin - ASCII_ALPHA
+numer = { '0'..'9' }				//builtin - ASCII_DIGIT
+									//builtin - ASCII_ALPHANUMERIC
+
+PTR_L = { "<" }
+PTR_R = { ">" }
+
+CELL_INCR = { "+" }
+CELL_DECR = { "-" }
+CELL_OUT = { "." }
+CELL_IN = { "," }
+
+LOOP_IN = { "[" }
+LOOP_OUT = { "]" }
+
+INLINE_COMMENT_DELIM = { "#" }
+
+comment = _{
+	INLINE_COMMENT_DELIM 
+	~ (!INLINE_COMMENT_DELIM ~ ANY)*
+	~ INLINE_COMMENT_DELIM
+}									//comments implicitly inserted (silently)
+
+WHITESPACE = _{
+	" " |
+	"\t" |
+	NEWLINE
+}									//whitespace/tab/newline unimportant & consumed (silently)
+
+main = {
+	SOI
+	~ expr*
+	~ EOI
+}
+
+bfloop = {
+	LOOP_IN
+	~ expr*
+	~ LOOP_OUT
+}									//loop is rust keyword so cannot be rule eg bfloop
+
+expr = {
+	PTR_L+ |
+	PTR_R+ |
+	CELL_INCR+ |
+	CELL_DECR+ |
+	CELL_IN+ |
+	CELL_OUT+ |
+	bfloop |
+	comment
+}
